@@ -32,7 +32,7 @@ const Sidebar = (props:any) => {
         
     }
     //MANEJO DE ROLES EN EL SIDEBAR
-    if(props.rol === 'user'){
+    if(props.rol === 'DOCENTE'){
         return (
             <div className={styles.sidebar}>
                 <div className={styles.sidebar_wrapper}>
@@ -141,7 +141,7 @@ const mapStateToProps = (state:any) =>{
         console.log("state desde sidebar ")
         console.log(state);
         return {
-            rol : state.auth.userData.roles[0].nombreRol
+            rol : state.auth.userData.ROL
         }
     }else{
         
