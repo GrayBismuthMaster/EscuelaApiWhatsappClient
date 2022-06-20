@@ -1,0 +1,49 @@
+import React from 'react'
+import { Outlet } from 'react-router-dom';
+//Layout 
+import Navbar from "../components/Dashboard/Layout/Navbar/Navbar";
+import Sidebar from "../components/Dashboard/Layout/Sidebar/Sidebar";
+//Getting redux data
+import {connect} from 'react-redux' 
+
+const ProtectedRoutes = (props:any) => {
+    const [auth, setAuth] = React.useState(false);
+    React.useEffect(() => {
+        console.log("carga primero")
+                setAuth(props.isSignedIn);
+    }, []);
+    
+    if(auth ){
+        return(
+            <>
+            
+                <Navbar/>
+                <div className="container">
+                <Sidebar/>
+                    <div className="others"> 
+                            <Outlet/>
+                            
+                    </div>
+                </div>
+            </>
+        )
+    }else{
+        return(
+                <div>
+                   NO PERMITIDO
+                </div>
+            
+        )
+    }
+}
+const mapStateToProps = (state: any) => {
+    console.log('state desde protected routes')
+    console.log(state);
+    return {
+        isSignedIn : state.auth.isSignedIn
+    }
+}
+
+export default connect(
+    mapStateToProps
+)(ProtectedRoutes);
