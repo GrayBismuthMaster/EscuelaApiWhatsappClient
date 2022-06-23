@@ -11,8 +11,6 @@ export const fetchUser = (user:any) => async (dispatch:any) =>{
 };
 export const fetchUsers = () => async (dispatch:any) =>{
     const response = await EscuelaApiWhatsappServer.get(`/usuarios/`);
-    // console.log('respuesta desde action fetch use')
-    // console.log(response.data)
     dispatch({type: 'FETCH_USERS', payload: response.data});
 };
 
@@ -23,14 +21,7 @@ export const createUser = (formValues: any) => async (dispatch:any) => {
             .then(res => {
                 console.log(res);
                 toast.success('Usuario creado con éxito', {
-                    // type: "success",
                     position: 'top-center',
-                    // autoClose: 5000,
-                    // hideProgressBar: false,
-                    // closeOnClick: true,
-                    // pauseOnHover: true,
-                    // draggable: true,
-                    // progress: undefined,
                 });
                 dispatch({type: 'CREATE_USER', payload: res.data.user});
 
@@ -44,14 +35,7 @@ export const editUser = (userId :any, formValues : any) => async (dispatch:any) 
         .then(res => {
             console.log(res);
             toast.success('Usuario editado con éxito', {
-                // type: "success",
                 position: 'top-center',
-                // autoClose: 5000,
-                // hideProgressBar: false,
-                // closeOnClick: true,
-                // pauseOnHover: true,
-                // draggable: true,
-                // progress: undefined,
             });
             dispatch({type: 'EDIT_USER', payload: res.data.user});
 
