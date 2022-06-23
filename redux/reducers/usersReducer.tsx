@@ -5,7 +5,7 @@ import _ from 'lodash';
 export const usersReducer = (state = {}, action:any) =>{
     switch(action.type){
         case 'FETCH_USERS':
-            return { ...state, ..._.mapKeys(action.payload, 'ID')};
+            return { ...state, ..._.mapKeys(action.payload, 'ID_USUARIO')};
         case 'CREATE_USER':
             return { ...state, [action.payload._id] : action.payload};
         case 'EDIT_USER': 

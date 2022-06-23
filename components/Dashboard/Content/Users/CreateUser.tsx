@@ -5,7 +5,7 @@ import Modal from '../../../Modal/Modal';
 import {connect} from 'react-redux'
 import {users} from '../../../../redux/actions/'
 import { useNavigate } from 'react-router-dom';
-import { Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import notificationStyles from '../../../../styles/divNotifications/divNotifications.module.css'
 //Redux form
 const createUser = users.createUser;
@@ -40,107 +40,114 @@ const CreateUser = (props : any) => {
         <>
             <Formik
                 initialValues={{
-                    nombre_usuario : "",
-                    telefono : "",
-                    correo : '',
-                    usuario : '',
-                    password : '',
-                    
+                    ID_USUARIO : "",
+                    NOMBRE_USER : "",
+                    TELEFONO : "",
+                    CORREO : '',
+                    USER : '',
+                    PASS : '',
                 }}
-                validate = {(values)=>{
-                    let errores = {nombre_usuario : '', telefono : '', correo : ''};
-                    console.log(values.correo);
-                    if(!values.nombre_usuario){
-                        errores.nombre_usuario =   'Ingresa un nombre pelao';
-                    }else if(!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(values.telefono)){
-                        errores.telefono = "Por favor ingrese un num telefonico";
-                    }else if(!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(values.correo)){
-                        console.log("errors")
-                        errores.correo =  "Essto es"
-                    }
-                    return errores;
-                 }}
-                onSubmit = {(values)=>{
-                    console.log('formulario enviado', values)
+                // validate = {(values)=>{
+                //     let errores = {nombre_usuario : '', telefono : '', correo : '', usuario : '', password : ''};
+                //     if(!values.nombre_usuario){
+                //         errores.nombre_usuario =   'Ingresa un nombre pelao';
+                //     }else if(!/^[0-9\s]{1,10}$/.test(values.telefono)){
+                //         errores.telefono = "Por favor ingrese un num telefonico";
+                //     }else if(!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(values.correo)){
+                //         errores.correo =  "Por favor ingrese un correo electrónico válido"
+                //     }else if(!values.usuario){
+                //         errores.usuario = "Por favor ingrese un usuario"
+                //     }else if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}/.test(values.password)){
+                //         errores.password = "La contraseña debe tener mínimo 8 caracteres, máximo 15, al menos una letra mayúscula, una minúscula, un dígito, sin espacios en blanco,1 caracter especial";
+                //     }
+                //     return errores;
+                //  }}
+                onSubmit = {(values, {resetForm})=>{
+                    props.createUser({...values, ID : 0, ESTADO : 1});
+                    resetForm();
                 }}
             >
                 {
-                    ({handleSubmit, values, handleChange, handleBlur, errors})=>
+                    ({handleSubmit, values})=>
                     (
                        
                         <Modal ref={componentRef} title = {'Crear Usuario'} image = {'https://images.pexels.com/photos/8978449/pexels-photo-8978449.jpeg?cs=srgb&dl=pexels-meruyert-gonullu-8978449.jpg&fm=jpg'}>
-                            <form  className={styles.form} name="formulario" onSubmit={handleSubmit}>
+                            <Form  className={styles.form} onSubmit={handleSubmit}>
                                 <div  className={styles.form_container_left_right}>    
                                     <div className={styles.form_container}>
                                         <div className={styles.form_group}>
-                                            <input
-                                                name='nombre_usuario'
+                                            <Field
+                                                name='ID_USUARIO'
                                                 type="text"
                                                 className={styles.form_input}
                                                 placeholder=""
-                                                value={values.nombre_usuario}
-                                                onChange = {handleChange}
-                                                onBlur = {handleBlur}
+                                                value={values.ID_USUARIO}
                                             />
-                                            <label htmlFor="text" className={styles.form_label}>Nombres y apellidos de Usuario</label>
+                                            <label htmlFor="ID_USUARIO" className={styles.form_label}>Id de usuario</label>
                                             <span className={styles.form_line}></span>
-                                            {<div className = {notificationStyles.error}>{errors.nombre_usuario}</div>}
+                                            {/* {errors.id_usuario ?? <div className = {notificationStyles.error}>{errors.id_usuario}</div>} */}
                                         </div>
                                         <div className={styles.form_group}>
-                                            <input
-                                                name='telefono'
+                                            <Field
+                                                name='NOMBRE_USER'
                                                 type="text"
                                                 className={styles.form_input}
                                                 placeholder=""
-                                                value={values.telefono}
-                                                onChange = {handleChange}
-                                                onBlur = {handleBlur}
+                                                value={values.NOMBRE_USER}
                                             />
-                                            <label htmlFor="telefono" className={styles.form_label}>Telefono</label>
+                                            <label htmlFor="NOMBRE_USER" className={styles.form_label}>Nombres y apellidos de Usuario</label>
                                             <span className={styles.form_line}></span>
-                                            {<div className = {notificationStyles.error}>{errors.telefono}</div>}
+                                            {/* {errors.nombre_user ?? <div className = {notificationStyles.error}>{errors.nombre_user}</div>} */}
                                         </div>
                                         <div className={styles.form_group}>
-                                            <input
-                                                name='correo'
+                                            <Field
+                                                name='TELEFONO'
+                                                type="text"
+                                                className={styles.form_input}
+                                                placeholder=""
+                                                value={values.TELEFONO}
+                                            />
+                                            <label htmlFor="TELEFONO" className={styles.form_label}>Telefono</label>
+                                            <span className={styles.form_line}></span>
+                                            {/* {errors.telefono ?? <div className = {notificationStyles.error}>{errors.telefono}</div>} */}
+                                        </div>
+                                        <div className={styles.form_group}>
+                                            <Field
+                                                name='CORREO'
                                                 type="email"
                                                 className={styles.form_input}
                                                 placeholder=""
-                                                value={values.correo}
-                                                onChange = {handleChange}
-                                                onBlur = {handleBlur}
+                                                value={values.CORREO}
                                             />
-                                            <label htmlFor="correo" className={styles.form_label}>Correo</label>
+                                            <label htmlFor="CORREO" className={styles.form_label}>Correo</label>
                                             <span className={styles.form_line}></span>
                                             
-                                            {<div className = {notificationStyles.error}>{errors.correo}</div>}
+                                            {/* {errors.correo ?? <div className = {notificationStyles.error}>{errors.correo}</div>} */}
                                         </div>
                                         <div className={styles.form_group}>
-                                            <input
-                                                name='usuario'
+                                            <Field
+                                                name='USER'
                                                 type="text"
                                                 className={styles.form_input}
                                                 placeholder=""
-                                                value={values.usuario}
-                                                onChange = {handleChange}
-                                                onBlur = {handleBlur}
+                                                value={values.USER}
                                             />
-                                            <label htmlFor="usuario" className={styles.form_label}>Usuario</label>
+                                            <label htmlFor="USER" className={styles.form_label}>Usuario</label>
                                             <span className={styles.form_line}></span>
+                                            {/* {errors.usuario ?? <div className = {notificationStyles.error}>{errors.user}</div>} */}
                                         </div>
 
                                         <div className={styles.form_group}>
-                                            <input
-                                                name='password'
+                                            <Field
+                                                name='PASS'
                                                 type="password"
                                                 className={styles.form_input}
                                                 placeholder=""
-                                                value={values.password}
-                                                onChange = {handleChange}
-                                                onBlur = {handleBlur}
+                                                value={values.PASS}
                                             />
-                                            <label htmlFor="password" className={styles.form_label}>Password</label>
+                                            <label htmlFor="PASS" className={styles.form_label}>Password</label>
                                             <span className={styles.form_line}></span>
+                                            {/* {errors.password ?? <div className = {notificationStyles.error}>{errors.password}</div>} */}
                                         </div>
                                         <div className={styles.form_group}>
                                             <span className={styles.select_label}>Roles</span>
@@ -151,39 +158,27 @@ const CreateUser = (props : any) => {
                                                     <span>Docente</span>
                                                 </div>
                                                 <div className={styles.checkBoxVerticalContainer}>
-                                                <input
-                                                    name='checkboxAdmin'
-                                                    type="checkbox"
-                                                    // value={values.checkBoxAdmin}
-                                                    onChange = {handleChange}
-                                                    onBlur = {handleBlur}
-
-                                                    // className={styles.form_input}
-                                                    // placeholder=""
+                                                <Field
+                                                    name="ROL"
+                                                    type="radio"
+                                                    value={"ADMINISTRADOR"}
                                                 />
-                                                <input
-                                                    name='checkboxModerator'
-                                                    type="checkbox"
-                                                    // value={values.checkboxModerador}
-                                                    onChange = {handleChange}
-                                                    onBlur = {handleBlur}
-
-                                                    // className={styles.form_input}
-                                                    // placeholder=""
+                                                <Field
+                                                    name="ROL"
+                                                    type="radio"
+                                                    value={"DOCENTE"}
                                                 />
-                                                    {/* <input type="checkbox" id="checkBox_admin" name = "checkBox_admin" onChange={setAdmin} ></input>
-                                                    <input type="checkbox" id="checkBox_moderator" name = "checkBox_moderator" onChange={setModerator} ></input> */}
+                                                     
                                                 </div>
                                             </div> 
                                         </div>
                                     </div>
                                 </div>
                                 <input type="submit" className={styles.form_submit} value="Registrarse" />       
-                            </form>
+                            </Form>
                             <Toaster/>                 
                         </Modal>
-                    )
-                } 
+                    )} 
             </Formik>
         </>
       )

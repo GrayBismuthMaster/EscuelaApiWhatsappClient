@@ -15,6 +15,7 @@ import {  green, yellow, red, blue } from '@mui/material/colors';
 import styles from "../../../../styles/tables/tables.module.css"
 
 import { fetchUsers } from "../../../../redux/actions/users";
+import { useLocation, useNavigate } from "react-router-dom";
 const useStyles = makeStyles({
   table: {
       minWidth: 650
@@ -23,6 +24,8 @@ const useStyles = makeStyles({
 
 const ReadUsersList = (props:any) => {
   
+  const navigate = useNavigate();
+  const location = useLocation();
   const [didLoad, setDidLoad] = useState(false);
   const [rows, setRows] = useState([])
   const [keys, setKeys] = useState([])
@@ -35,7 +38,7 @@ const ReadUsersList = (props:any) => {
     return () => {
       
     }
-  },[didLoad])
+  },[didLoad,JSON.stringify(props.users)])
 
   useEffect(()=>{
     console.log("Use efccet para las rows")
@@ -63,6 +66,12 @@ const ReadUsersList = (props:any) => {
   
   const editRow = (props: any)=>{
     console.log(props.currentTarget.id)
+    navigate('edit', {state : {datosFila: JSON.parse(props.currentTarget.id), pathname : location.pathname}})
+  }
+  
+  const deleteRow = (props: any)=>{
+    console.log(props.currentTarget.id)
+    navigate('delete', {state : {datosFila: JSON.parse(props.currentTarget.id), pathname : location.pathname}})
   }
   
   // return(
@@ -107,7 +116,7 @@ const ReadUsersList = (props:any) => {
                   <TableCell align="right">{row.NOMBRE_USER}</TableCell>
                   <TableCell align="right">{row.TELEFONO}</TableCell>
                   <TableCell align="right">{row.CORREO}</TableCell>
-                  <TableCell align="right" ><EditIcon id={row.ID} sx={{ color: yellow[700] }} className={styles.icon} onClick={(props)=>{editRow(props)}} />            <DeleteIcon id={row.ID} sx={{ color: red[600] }} className={styles.icon} onClick={(props)=>{console.log(props.currentTarget.id)}}/></TableCell>
+                  <TableCell align="right" ><EditIcon id={JSON.stringify({ID : row.ID, ID_USUARIO : row.ID_USUARIO, USER: row.USER, ROL: row.ROL, NOMBRE_USER : row.NOMBRE_USER, TELEFONO : row.TELEFONO, CORREO : row.CORREO})} sx={{ color: yellow[700] }} className={styles.icon} onClick={(props)=>{editRow(props)}}  />            <DeleteIcon id={JSON.stringify({ID : row.ID, NOMBRE_USER : row.NOMBRE_USER, ID_USUARIO : row.ID_USUARIO})} sx={{ color: red[600] }} className={styles.icon} onClick={(props)=>{deleteRow(props)}}/></TableCell>
                 </TableRow>
               ))
             }
@@ -128,7 +137,7 @@ const mapStateToProps = (state : any) => {
   console.log("Array de usuairo")
   console.log(users);
   let keys = {};
-  keys = {... users[1]};
+  keys = {... users[123]};
   console.log(keys);
   const userKeys = Object.keys(keys);
   console.log(userKeys);
