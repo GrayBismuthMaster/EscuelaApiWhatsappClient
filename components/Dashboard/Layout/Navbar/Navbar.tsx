@@ -11,6 +11,7 @@ const signOut = auth.signOut;
 
 const Navbar = (props:any)=> {
     const navigate = useNavigate();
+    
     useEffect(() => {
         return () => {
         };
@@ -61,8 +62,6 @@ const Navbar = (props:any)=> {
     )
 }
 const mapStateToProps = (state:any)=>{
-    console.log("desde mapstate")
-    console.log(state)
     if(state.auth.userData){
         return{
             userData: state.auth.userData

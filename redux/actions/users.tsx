@@ -11,8 +11,8 @@ export const fetchUser = (user:any) => async (dispatch:any) =>{
 };
 export const fetchUsers = () => async (dispatch:any) =>{
     const response = await EscuelaApiWhatsappServer.get(`/usuarios/`);
-    console.log('respuesta desde action ftch use')
-    console.log(response.data)
+    // console.log('respuesta desde action fetch use')
+    // console.log(response.data)
     dispatch({type: 'FETCH_USERS', payload: response.data});
 };
 

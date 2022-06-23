@@ -12,9 +12,8 @@ import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import PendingIcon from '@mui/icons-material/Pending';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import {connect} from 'react-redux'
+
 const Sidebar = (props:any) => {
-    console.log("props desde sidebar dentro")
-    console.log(props)
     useEffect(() => {
         return () => {
             // effects.forEach(effect => effect.cancel());
@@ -29,7 +28,6 @@ const Sidebar = (props:any) => {
                 return styles.navLink
             }
         }
-        
     }
     //MANEJO DE ROLES EN EL SIDEBAR
     if(props.rol === 'DOCENTE'){
@@ -90,42 +88,6 @@ const Sidebar = (props:any) => {
                                 <PersonIcon className={styles.sideBarIcon}/>
                                 <NavLink className={activo} to='/users'>Usuarios</NavLink>
                             </li>
-                            <li className={styles.sidebar_list_item}>
-                                <AnalyticsIcon className={styles.sideBarIcon}/>
-                                <NavLink className={activo} to='/statistics'>Estadísticas</NavLink>
-                            </li>
-                            <li className={styles.sidebar_list_item}>
-                                <MedicationIcon className={styles.sideBarIcon}/>
-                                <NavLink className={activo} to='/docs'>Documentos</NavLink>
-                            </li>
-                            <li className={styles.sidebar_list_item}>
-                                <InsertInvitationIcon className={styles.sideBarIcon}/>
-                                <NavLink className={activo} to='/reserva-citas'>Reserva de Citas</NavLink>
-                           
-                            </li>
-                        </ul>
-                    </div>
-                    <div className={styles.sidebar_menu}>
-                        <h1 className={styles.sidebar_title}>
-                            Menú de Acceso Rápido
-                        </h1>
-                        <ul className={styles.sidebar_list}>
-                            <li className={styles.sidebar_list_item}>
-                                <HistoryEduIcon className={styles.sideBarIcon}/>
-                                <NavLink className={activo} to="/historias-clinicas">Historias Clínicas</NavLink>
-                            </li>
-                            <li className={styles.sidebar_list_item}>
-                                <LineStyleIcon className={styles.sideBarIcon}/>
-                                 <NavLink className={activo} to="/protocolos-operatorios">Protocolos Operatorios</NavLink>
-                            </li>
-                            <li className={styles.sidebar_list_item}>
-                                <PendingIcon className={styles.sideBarIcon}/>
-                                <NavLink className={activo} to="/epicrisises">Epicrisis</NavLink>
-                            </li>
-                            <li className={styles.sidebar_list_item}>
-                                <DoneAllIcon className={styles.sideBarIcon}/>
-                                <NavLink className={activo} to="/consentimientos">Consentimientos</NavLink>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -138,13 +100,10 @@ const Sidebar = (props:any) => {
 const mapStateToProps = (state:any) =>{
     if(state.auth.userData!==null)
     {
-        console.log("state desde sidebar ")
-        console.log(state);
         return {
             rol : state.auth.userData.ROL
         }
     }else{
-        
         return {
             rol : "user"
         }

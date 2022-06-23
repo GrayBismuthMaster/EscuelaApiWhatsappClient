@@ -23,9 +23,10 @@
     margin-left: 15%;
 }
 
-.itemLI:hover{
-    transform: scale(1.04);
-    background: rgba(255,255,255,0.3);
+.icon:hover{
+    transform: scale(1.64);
+    background-color: rgba(149, 144, 229, 0.147);
+    border-radius: 40%;
 }
 .button{
     background-color: rgba(0, 0, 0, 0.1);
@@ -71,8 +72,8 @@
     justify-content: center;
     align-items: center;
     justify-items: center;
-    width: 30%;
-    height: 35%;
+    width: 50%;
+    height: 45%;
     background-color: rgba(0, 0, 0,.2);
     box-shadow: rgba(0, 0, 0, 0.6) 8px 8px 8px ;
     border-radius: 7%;

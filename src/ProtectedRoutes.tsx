@@ -37,8 +37,6 @@ const ProtectedRoutes = (props:any) => {
     }
 }
 const mapStateToProps = (state: any) => {
-    console.log('state desde protected routes')
-    console.log(state);
     return {
         isSignedIn : state.auth.isSignedIn
     }
